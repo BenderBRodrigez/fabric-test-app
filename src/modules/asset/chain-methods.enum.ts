@@ -6,4 +6,5 @@ export enum ChainMethod {
     'DeleteAsset' = 'DeleteAsset',
     'AssetExists' = 'AssetExists',
     'GetAllAssets' = 'GetAllAssets',
+    'GetAssetHistory' = 'GetAssetHistory',
 }

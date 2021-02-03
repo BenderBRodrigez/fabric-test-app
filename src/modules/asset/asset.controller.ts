@@ -59,4 +59,10 @@ export class AssetController {
     return;
   }
 
+  @Get(':id/history')
+  @ApiOperation({summary: 'Get Asset History by Id'})
+  async historyAsset(@Param('id') id: string) {
+    const result = await this.hlfService.contract.evaluateTransaction(ChainMethod.GetAssetHistory, id);
+    return this.hlfService.Buffer2JSON(result);
+  }
 }
