@@ -12,6 +12,7 @@ async function bootstrap() {
   app.use(helmet());
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
+  app.enableShutdownHooks();
 
   const options = new DocumentBuilder().build();
   const document = SwaggerModule.createDocument(app, options);

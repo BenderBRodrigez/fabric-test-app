@@ -41,7 +41,8 @@ export class HlfAdminService {
     return provider.getUserContext(adminIdentity, adminId);
   }
 
-  async enrollAdmin(mspId: string) {
+  async enrollAdmin(msp?: string) {
+    const mspId = msp || this.config.get('ORG1_MSP');
     const enrollmentID = this.config.get('ADMIN_ID');
     if (await this.getIdentity(enrollmentID)) {
       return;
@@ -50,17 +51,20 @@ export class HlfAdminService {
     await this.putIdentity(enrollmentID, enrollmentSecret, mspId);
   }
 
-  async registerAndEnrollUser(userId: string, mspId: string, affiliation: string) {
-    if (await this.getIdentity(userId)) {
-      throw new HttpException('user already exists', HttpStatus.BAD_REQUEST);
+  async registerAndEnrollUser(msp?: string, userAffiliation?: string, userId?: string) {
+    const mspId = msp || this.config.get('ORG1_MSP');
+    const enrollmentID = userId || this.config.get('USER_ID');
+    const affiliation = userAffiliation || this.config.get('USER_AFFILIATION');
+    if (await this.getIdentity(enrollmentID)) {
+      return;
     }
     const adminUser = await this.getAdminUser();
     const secret = await this.hlfService.caClient.register({
       affiliation,
-      enrollmentID: userId,
+      enrollmentID,
       role: 'client',
     }, adminUser);
-    await this.putIdentity(userId, secret, mspId);
+    await this.putIdentity(enrollmentID, secret, mspId);
   }
 
   async rejectUser(userId: string) {

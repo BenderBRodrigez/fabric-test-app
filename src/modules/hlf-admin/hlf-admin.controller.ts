@@ -20,7 +20,7 @@ export class HlfAdminController {
   @HttpCode(HttpStatus.CREATED)
   createUser(@Body() input: CreateHlfUserDto) {
     const msp = this.config.get('ORG1_MSP');
-    return this.hlfAdminService.registerAndEnrollUser(input.user, msp, input.affiliation);
+    return this.hlfAdminService.registerAndEnrollUser(msp, input.affiliation, input.user);
   }
 
   @Delete('user')
