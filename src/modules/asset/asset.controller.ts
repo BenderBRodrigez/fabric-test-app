@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChainMethod } from './chain-methods.enum';
-import { CreateAssetDto } from './dto/create-asset.dto';
 import { HlfService } from '../shared/services/hlf.service';
+import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 
 
